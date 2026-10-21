@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hina Muqaddas | AI-Augmented Frontend Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        aiDark: '#030f14',
+                        aiNavy: '#071822',
+                        aiTeal: '#0e2a38',
+                        aiCyan: '#06b6d4',
+                        aiGold: '#f59e0b',
+                        aiAmber: '#d97706',
+                    },
+                    boxShadow: {
+                        'glow-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.4)',
+                        'glow-gold': '0 0 25px -5px rgba(245, 158, 11, 0.4)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font: Inter & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome & DevIcons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030f14;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        /* Custom Glassmorphism */
+        .glass-card {
+            background: rgba(7, 24, 34, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+        }
+        .glass-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.15);
+        }
+        .glass-gold {
+            background: rgba(18, 28, 36, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+        /* Custom Glowing AI Circuit Background Grid */
+        .ai-grid-bg {
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 85% 60%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+        /* Hexagon Clip Path for Tech Shapes */
+        .clip-hexagon {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        .clip-octagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030f14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0e2a38;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="ai-grid-bg antialiased selection:bg-aiGold selection:text-black">
+
+    <!-- Toast Notification for Actions -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 ease-out flex items-center gap-3 px-5 py-3 rounded-xl bg-aiGold text-slate-950 font-semibold shadow-2xl">
+        <i id="toast-icon" class="fa-solid fa-check-circle text-lg"></i>
+        <span id="toast-msg">Copied to clipboard!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 backdrop-blur-md bg-aiDark/80 border-b border-cyan-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-amber-500 p-[1px] transition-transform group-hover:scale-105">
+                    <div class="w-full h-full bg-aiNavy rounded-[11px] flex items-center justify-center">
+                        <i class="fa-solid fa-brain text-aiGold text-lg group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white code-font">
+                    &lt;<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-amber-400">Hina.Dev</span> /&gt;
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="text-slate-300 hover:text-aiGold transition-colors">About Me</a>
+                <a href="#skills" class="text-slate-300 hover:text-aiCyan transition-colors">Tech Stack</a>
+                <a href="#services" class="text-slate-300 hover:text-aiGold transition-colors">Services</a>
+                <a href="#projects" class="text-slate-300 hover:text-aiCyan transition-colors">Projects</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-amber-500/20 border border-aiGold/40 text-aiGold font-semibold hover:bg-aiGold hover:text-slate-950 transition-all shadow-glow-gold">
+                    Contact Info
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" class="md:hidden p-2.5 rounded-lg bg-aiNavy text-slate-300 hover:text-white border border-cyan-800/40">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-aiNavy/95 border-b border-cyan-900/40 px-6 py-6 space-y-4">
+            <a href="#about" class="block text-slate-200 hover:text-aiGold py-1 text-base">About Me</a>
+            <a href="#skills" class="block text-slate-200 hover:text-aiCyan py-1 text-base">Tech Stack</a>
+            <a href="#services" class="block text-slate-200 hover:text-aiGold py-1 text-base">Services</a>
+            <a href="#projects" class="block text-slate-200 hover:text-aiCyan py-1 text-base">Projects</a>
+            <a href="#contact" class="block text-center py-3 rounded-xl bg-aiGold text-slate-950 font-bold">
+                Contact Info
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen pt-28 lg:pt-36 pb-20 flex items-center relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Column Text -->
+                <div class="lg:col-span-7 space-y-8">
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card border-cyan-500/30 text-xs sm:text-sm font-medium text-cyan-300">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 -ml-5"></span>
+                        <span>Available for Custom Projects & Ready-Made Solutions</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Crafting High-Performance <br class="hidden sm:inline"/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-amber-300 to-amber-500">
+                            Frontend Apps
+                        </span> 
+                        with AI Precision
+                    </h1>
+
+                    <p class="text-lg text-slate-300 max-w-2xl leading-relaxed">
+                        Hi, I'm <span class="text-white font-semibold">Hina Muqaddas (Hina Ch)</span> — a passionate Frontend Developer leveraging AI workflows to craft ultra-responsive, visually stunning, and intelligent web applications customized to your exact requirements.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#projects" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-slate-950 font-bold hover:shadow-glow-cyan transition-all flex items-center gap-2">
+                            <span>Explore Projects</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="#contact" class="px-7 py-3.5 rounded-xl glass-gold text-aiGold font-semibold hover:bg-aiGold hover:text-slate-950 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Get Contact Info</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Highlights Grid -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80 max-w-lg">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-aiGold">2+ Yrs</p>
+                            <p class="text-xs sm:text-sm text-slate-400">Dev Experience</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-aiCyan">100%</p>
+                            <p class="text-xs sm:text-sm text-slate-400">Custom Built</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-emerald-400">Ready</p>
+                            <p class="text-xs sm:text-sm text-slate-400">Academic & Client</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column AI Theme Interactive Card -->
+                <div class="lg:col-span-5 relative">
+                    <!-- Background Glow -->
+                    <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-500 to-amber-500 opacity-30 blur-2xl animate-pulse-slow"></div>
+
+                    <!-- Main Glowing Visual Widget -->
+                    <div class="relative glass-card rounded-2xl p-6 border border-cyan-500/30 space-y-6 shadow-2xl animate-float">
+                        <!-- Top Bar Mockup -->
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                            </div>
+                            <span class="text-xs code-font text-cyan-400 font-medium">ai_engine_active.v2</span>
+                        </div>
+
+                        <!-- Central Visual Element inspired by Globe & AI Neural Core -->
+                        <div class="relative py-6 flex items-center justify-center">
+                            <!-- Outer Rotating Ring -->
+                            <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full border border-dashed border-cyan-500/40 flex items-center justify-center relative animate-[spin_20s_linear_infinite]">
+                                <div class="absolute -top-2 w-4 h-4 bg-aiGold rounded-full shadow-glow-gold"></div>
+                                <div class="absolute -bottom-2 w-4 h-4 bg-aiCyan rounded-full shadow-glow-cyan"></div>
+                            </div>
+
+                            <!-- Inner AI Chip Container -->
+                            <div class="absolute w-36 h-36 rounded-2xl bg-gradient-to-br from-aiNavy to-aiDark border-2 border-aiGold/60 shadow-glow-gold flex flex-col items-center justify-center p-4">
+                                <i class="fa-solid fa-microchip text-4xl text-aiGold mb-2 animate-pulse"></i>
+                                <span class="text-xs font-bold text-white tracking-widest uppercase">HINA AI CORE</span>
+                                <span class="text-[10px] text-cyan-400 code-font mt-1">&lt;Frontend/&gt;</span>
+                            </div>
+                        </div>
+
+                        <!-- JSON Terminal Preview -->
+                        <div class="bg-slate-950/90 rounded-xl p-4 code-font text-xs text-slate-300 space-y-1.5 border border-cyan-900/40">
+                            <p><span class="text-purple-400">const</span> <span class="text-amber-300">developer</span> = {</p>
+                            <p class="pl-4"><span class="text-cyan-400">name</span>: <span class="text-emerald-300">"Hina Muqaddas"</span>,</p>
+                            <p class="pl-4"><span class="text-cyan-400">expertise</span>: [<span class="text-emerald-300">"Frontend"</span>, <span class="text-emerald-300">"AI Integration"</span>],</p>
+                            <p class="pl-4"><span class="text-cyan-400">customOrders</span>: <span class="text-amber-400">true</span>,</p>
+                            <p class="pl-4"><span class="text-cyan-400">readyProjects</span>: <span class="text-amber-400">true</span></p>
+                            <p>};</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT ME SECTION (Expanded & Detailed) -->
+    <section id="about" class="py-24 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-aiGold text-sm font-semibold tracking-widest uppercase code-font">// Who I Am</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white">
+                    Passionate Frontend Developer & AI Enthusiast
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-amber-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Image/Decorative Badge -->
+                <div class="lg:col-span-5">
+                    <div class="glass-card rounded-3xl p-8 border border-amber-500/20 relative overflow-hidden group">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all"></div>
+                        
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-amber-500 p-0.5">
+                                <div class="w-full h-full bg-aiDark rounded-[14px] flex items-center justify-center">
+                                    <i class="fa-solid fa-code text-2xl text-aiGold"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Hina Muqaddas</h3>
+                                <p class="text-sm text-cyan-400">Best-in-Class Frontend Engineer</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base mb-6">
+                            I am a professional Frontend Developer specializing in crafting eye-catching, fully responsive websites using modern UI/UX design principles, clean code practices, and cutting-edge AI tools.
+                        </p>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 text-sm text-slate-200">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>Tailor-made projects built according to user instructions</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-200">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>Ready-made academic & production projects available</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-200">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>AI-assisted fast development & prompt optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Detailed Cards -->
+                <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="glass-card rounded-2xl p-6 border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-laptop-code text-xl text-aiCyan"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Custom Requirement Dev</h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                           Websites and Web UIs are engineered from scratch, customized precisely according to your specific instructions and project requirements.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card rounded-2xl p-6 border border-amber-800/30 hover:border-amber-400/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-robot text-xl text-aiGold"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">AI Workflow & Speed</h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                           Leveraging advanced AI prompts and generative design tools to deliver top-tier aesthetics, futuristic backgrounds, and high-performance functionality.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card rounded-2xl p-6 border border-amber-800/30 hover:border-amber-400/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-box-archive text-xl text-aiGold"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Ready-Made Projects</h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                           Pre-built, ready-to-deploy management systems available instantly, including Library Systems, Boutique Platforms, and academic projects.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="glass-card rounded-2xl p-6 border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-mobile-screen-button text-xl text-aiCyan"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Mobile First Responsiveness</h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                           Every website is optimized to deliver lightning-fast, perfectly fluid performance across mobile, tablet, and desktop screens.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TECH STACK & TOOLS (Custom Geometric Glass Badges) -->
+    <section id="skills" class="py-24 bg-aiNavy/40 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-aiCyan text-sm font-semibold tracking-widest uppercase code-font">// Technical Capabilities</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white">
+                    Languages, Frameworks & AI Tools
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base">Custom designed geometric tech stack badges with performance indicators</p>
+            </div>
+
+            <!-- Tech Grid with Custom Shapes -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+                
+                <!-- HTML5 -->
+                <div class="glass-card p-6 rounded-2xl border border-amber-500/20 hover:border-amber-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-hexagon bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-amber-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-html5-plain colored text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">HTML5</h3>
+                    <p class="text-xs text-slate-400 mt-1">Semantic & Accessible</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-amber-500 h-full w-[95%]"></div>
+                    </div>
+                </div>
+
+                <!-- CSS3 & Tailwind -->
+                <div class="glass-card p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-octagon bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 border border-cyan-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-tailwindcss-plain colored text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">CSS3 / Tailwind</h3>
+                    <p class="text-xs text-slate-400 mt-1">Glassmorphism & Grids</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-cyan-400 h-full w-[92%]"></div>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="glass-card p-6 rounded-2xl border border-amber-500/20 hover:border-amber-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-hexagon bg-gradient-to-tr from-yellow-500/20 to-amber-500/20 border border-yellow-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-javascript-plain colored text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">JavaScript (ES6+)</h3>
+                    <p class="text-xs text-slate-400 mt-1">Dynamic Logic & DOM</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-yellow-400 h-full w-[88%]"></div>
+                    </div>
+                </div>
+
+                <!-- PHP Backend -->
+                <div class="glass-card p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-octagon bg-gradient-to-tr from-purple-500/20 to-indigo-500/20 border border-purple-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-php-plain colored text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">PHP Backend</h3>
+                    <p class="text-xs text-slate-400 mt-1">Server Logic & Data</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-purple-400 h-full w-[85%]"></div>
+                    </div>
+                </div>
+
+                <!-- MySQL Database -->
+                <div class="glass-card p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-octagon bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 border border-blue-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-mysql-plain colored text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">MySQL</h3>
+                    <p class="text-xs text-slate-400 mt-1">Database Queries</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-blue-400 h-full w-[82%]"></div>
+                    </div>
+                </div>
+
+                <!-- AI Prompting & Tools -->
+                <div class="glass-card p-6 rounded-2xl border border-amber-500/20 hover:border-amber-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-hexagon bg-gradient-to-tr from-emerald-500/20 to-cyan-500/20 border border-emerald-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-wand-magic-sparkles text-3xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">AI Tools & Prompts</h3>
+                    <p class="text-xs text-slate-400 mt-1">Generative Dev & UI</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-emerald-400 h-full w-[95%]"></div>
+                    </div>
+                </div>
+
+                <!-- Figma / UI Design -->
+                <div class="glass-card p-6 rounded-2xl border border-amber-500/20 hover:border-amber-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-hexagon bg-gradient-to-tr from-pink-500/20 to-rose-500/20 border border-pink-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-figma-plain colored text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Figma to Code</h3>
+                    <p class="text-xs text-slate-400 mt-1">Pixel Perfect Layouts</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-pink-400 h-full w-[90%]"></div>
+                    </div>
+                </div>
+
+                <!-- Git & GitHub -->
+                <div class="glass-card p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 flex flex-col items-center text-center group transition-all">
+                    <div class="w-20 h-20 clip-octagon bg-gradient-to-tr from-slate-500/20 to-slate-700/20 border border-slate-400/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="devicon-github-original text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Git & GitHub</h3>
+                    <p class="text-xs text-slate-400 mt-1">Version Control</p>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-slate-300 h-full w-[88%]"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES OFFERED -->
+    <section id="services" class="py-24 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-aiGold text-sm font-semibold tracking-widest uppercase code-font">// What I Offer</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white">
+                    Solutions Tailored To Your Needs
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="glass-gold rounded-3xl p-8 border border-amber-500/30 relative flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-aiGold/20 text-aiGold flex items-center justify-center text-2xl font-bold">
+                            01
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Custom Website According to Instructions</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                           Building complete frontend and backend tailored strictly to your specific requirements, reference images, or custom project ideas.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-amber-500/20 mt-6 flex items-center text-aiGold font-semibold text-sm gap-2">
+                        <span>100% Customized</span>
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card rounded-3xl p-8 border border-cyan-500/30 relative flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 text-aiCyan flex items-center justify-center text-2xl font-bold">
+                            02
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Readymade Academic & Production Projects</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Instant availability of pre-built, high-quality systems for students and clients, including Library Management Systems, Boutique Portals, and core management applications.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-cyan-500/20 mt-6 flex items-center text-aiCyan font-semibold text-sm gap-2">
+                        <span>Instant Delivery</span>
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-gold rounded-3xl p-8 border border-amber-500/30 relative flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-bold">
+                            03
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">AI-Enhanced Web Applications</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                           Creating unique digital experiences with futuristic aesthetics, dark modern themes, neural network background patterns, and integrated AI interfaces.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-amber-500/20 mt-6 flex items-center text-emerald-400 font-semibold text-sm gap-2">
+                        <span>Next-Gen Themes</span>
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+   <!-- Project Card 1: Library Management System -->
+<div class="glass-card rounded-3xl overflow-hidden border border-emerald-500/20 hover:border-emerald-500/50 transition duration-300 flex flex-col justify-between group">
+    
+   <!-- Top Image / Banner Area with Direct Online OLMS Poster -->
+        <div class="h-52 relative overflow-hidden rounded-t-3xl border-b border-emerald-500/20">
+            <!-- Direct Web Link Image -->
+           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT__Ur7tS2accfXLhztqc9d1w9vqFfFoqPQHS_cjtNXKw&s=10" alt="OLMS Portal Preview" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">" alt="OLMS Portal Preview" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+            
+            <!-- Dark Gradient Overlay for Clean Look -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+
+            <!-- Readymade Badge -->
+            <span class="absolute top-4 right-4 text-xs font-mono px-3 py-1 rounded-full bg-slate-950/80 text-emerald-400 border border-emerald-500/30 backdrop-blur-md shadow-lg z-10">
+                Readymade Available
+            </span>
+        </div>
+
+    <!-- Card Content -->
+    <div class="p-6 flex-1 flex flex-col justify-between">
+        <div>
+            <!-- Title with Active External Link Icon -->
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                    Library Management System
+                </h3>
+                <!-- Top Right Icon linked directly -->
+                <a href="https://hina-dev-projects.infinityfreeapp.com/library/" target="_blank" title="Open Live System" class="text-slate-400 hover:text-emerald-400 text-lg transition-colors p-1">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+
+            <p class="text-slate-300 text-sm line-clamp-2 mb-6">
+                PHP &amp; MySQL database-driven complete record tracking system with book issuing, member management, and return calculation.
+            </p>
+
+            <!-- Tech Stack Badges -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-[11px] code-font px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/50">PHP</span>
+                <span class="text-[11px] code-font px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/50">MySQL</span>
+                <span class="text-[11px] code-font px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/50">Tailwind CSS</span>
+            </div>
+        </div>
+
+        <!-- Main Clickable Button -->
+        <a href="https://hina-dev-projects.infinityfreeapp.com/library/" target="_blank" class="w-full py-3 px-4 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition duration-200">
+            <span>View Live System</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+    </div>
+</div>
+
+              <!-- Project Card 2: Boutique Management Platform -->
+<div class="glass-card rounded-3xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition duration-300 flex flex-col justify-between group">
+    
+    <!-- Top Image / Banner Area with HD Boutique Image -->
+    <div class="h-52 relative overflow-hidden rounded-t-3xl border-b border-amber-500/20">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0F3rZl2VnXVquDEKOnVIGyE7bDRzUHkpaipdr-P7nUg&s=10" alt="Boutique Platform Preview" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+        
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+
+        <!-- Custom Built Badge -->
+        <span class="absolute top-4 right-4 text-xs font-mono px-3 py-1 rounded-full bg-slate-950/80 text-amber-400 border border-amber-500/30 backdrop-blur-md shadow-lg z-10">
+            Custom Built
+        </span>
+    </div>
+
+    <!-- Card Content -->
+    <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+        <div>
+            <!-- Title with Active External Link Icon -->
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">Boutique Management Platform</h3>
+                <a href="https://digital-boutique-project.infinityfreeapp.com/boutique_app/public/" target="_blank" title="Open Live Store" class="text-slate-400 hover:text-amber-400 text-lg transition-colors p-1">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                </a>
+            </div>
+
+            <p class="text-slate-300 text-sm line-clamp-2">
+                Interactive digital catalog, stock management platform, order tracker, and stylish responsive layout for clothing brands.
+            </p>
+
+            <!-- Tech Stack Badges -->
+            <div class="flex flex-wrap gap-2 pt-2">
+                <span class="text-[11px] code-font px-2.5 py-1 rounded-md bg-amber-950/50 text-amber-300 border border-amber-800/50">JavaScript ES6</span>
+                <span class="text-[11px] code-font px-2.5 py-1 rounded-md bg-amber-950/50 text-amber-300 border border-amber-800/50">Tailwind</span>
+                <span class="text-[11px] code-font px-2.5 py-1 rounded-md bg-amber-950/50 text-amber-300 border border-amber-800/50">Glassmorphism</span>
+            </div>
+        </div>
+
+        <!-- View Live Store Button -->
+        <a href="https://digital-boutique-project.infinityfreeapp.com/boutique_app/public/" target="_blank" class="w-full py-3 px-4 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition duration-200">
+            <span>View Live Store</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+    </div>
+</div>
+
+    <!-- FOOTER / CONTACT SECTION (NO FORM - DIRECT EMAIL & LINKEDIN AS REQUESTED) -->
+    <section id="contact" class="py-24 relative border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="glass-gold rounded-3xl p-8 sm:p-12 border border-amber-500/30 text-center space-y-8 relative overflow-hidden shadow-2xl">
+                <!-- Background Accent Glow -->
+                <div class="absolute -top-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="space-y-4">
+                    <span class="text-aiGold text-sm font-semibold tracking-widest uppercase code-font">// Direct Contact</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Let's Work Together!</h2>
+                    <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
+                        Whether you need a custom website tailored to your exact requirements or a ready-made project, feel free to reach out directly via Email or LinkedIn!
+                    </p>
+                </div>
+
+                <!-- Direct Email Badge Display -->
+                <div class="inline-flex flex-col sm:flex-row items-center gap-4 p-4 rounded-2xl bg-aiDark/90 border border-amber-500/40 shadow-inner max-w-lg mx-auto w-full justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-aiGold">
+                            <i class="fa-solid fa-envelope text-lg"></i>
+                        </div>
+                        <span id="email-text" class="text-white font-semibold code-font text-sm sm:text-base">hinach5599@gmail.com</span>
+                    </div>
+                    <button onclick="copyEmail()" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-aiGold text-slate-950 font-bold hover:bg-amber-400 transition-all text-xs flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copy Email</span>
+                    </button>
+                </div>
+
+                <!-- Quick Social & Professional Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                    
+                    <!-- Direct Email Link -->
+                    <a href="mailto:hinach5599@gmail.com" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold hover:shadow-glow-gold transition-all flex items-center gap-2.5">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Send Direct Email</span>
+                    </a>
+
+                    <!-- LinkedIn Link -->
+                    <a href="https://www.linkedin.com/in/hina-muqaddas-ch-b1414b3b6/" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl bg-[#0A66C2] text-white font-bold hover:opacity-90 transition-all flex items-center gap-2.5">
+                        <i class="fa-brands fa-linkedin text-lg"></i>
+                        <span>Connect on LinkedIn</span>
+                    </a>
+
+                    <!-- GitHub Link -->
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl glass-card text-white font-semibold hover:border-cyan-400 transition-all flex items-center gap-2.5">
+                        <i class="fa-brands fa-github text-lg"></i>
+                        <span>GitHub Profile</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom Note -->
+            <div class="pt-12 text-center text-xs text-slate-500 space-y-2">
+                <p>© 2026 Hina Muqaddas (Hina Ch) — Built with AI Precision & Modern Web Tech</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PROJECT DETAIL MODAL POPUP -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-cyan-500/40 relative space-y-6 max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeProjectModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-content" class="space-y-4">
+                <!-- Content dynamically populated via JS -->
+            </div>
+            
+            <div class="pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="closeProjectModal()" class="px-6 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-sm">
+                    Close Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERACTIONS -->
+    <script>
+        // Mobile Drawer Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Copy Email to Clipboard Functionality
+        function copyEmail() {
+            const email = document.getElementById('email-text').innerText;
+            
+            // Clipboard Fallback Strategy for iFrames
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(email);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+
+            showToast("Email address copied to clipboard!");
+        }
+
+        // Toast Notification System
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.innerText = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Project Modal Popups
+        const projectData = {
+            'lib': {
+                title: 'Library Management System',
+                tech: 'PHP, MySQL, Tailwind CSS, JavaScript',
+                type: 'Readymade Academic & Production Project',
+                desc: 'A complete end-to-end relational database driven application. It allows admin users to register books, issue items to students, calculate late fee penalties, and search library items instantly.'
+            },
+            'boutique': {
+                title: 'Boutique Management Platform',
+                tech: 'HTML5, CSS3/Tailwind, JavaScript ES6',
+                type: 'Custom Tailored Project',
+                desc: 'Ultra-sleek e-commerce catalog featuring interactive item categorization, price filtering, order request dispatching, and high-level mobile responsive UI layout.'
+            }
+        };
+
+        function openProjectModal(key) {
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+            const data = projectData[key];
+
+            content.innerHTML = `
+                <span class="text-xs font-bold text-aiGold uppercase code-font">${data.type}</span>
+                <h3 class="text-2xl font-bold text-white">${data.title}</h3>
+                <p class="text-slate-300 text-sm leading-relaxed">${data.desc}</p>
+                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-cyan-300 code-font">
+                    <strong>Tech Stack:</strong> ${data.tech}
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Close modal on backdrop click
+        window.onclick = function(event) {
+            const modal = document.getElementById('project-modal');
+            if (event.target == modal) {
+                closeProjectModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
