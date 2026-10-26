@@ -239,46 +239,72 @@
                         </div>
                     </div>
                 </div>
+<!-- Right Column: High-Tech AI Neural Graphic Widget -->
+        <div class="lg:col-span-5 relative">
+            <!-- Background Glow Animation -->
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-500 to-amber-500 opacity-30 blur-2xl animate-pulse"></div>
 
-                <!-- Right Column AI Theme Interactive Card -->
-                <div class="lg:col-span-5 relative">
-                   <!-- Background Glow -->
-                <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-aiCyan to-aiGold opacity-20 blur-xl"></div>
+            <!-- Main Visual Card -->
+            <div class="relative bg-slate-950/90 rounded-3xl p-6 border border-cyan-500/30 space-y-6 shadow-2xl backdrop-blur-xl">
+                
+                <!-- Top Bar Mockup -->
+                <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                    </div>
+                    <span class="text-xs font-mono text-cyan-400 font-medium tracking-wide">ai_engine_active.v2</span>
+                </div>
 
-                <!-- Main Glowing Visual Widget -->
-                <div class="relative bg-slate-950/90 rounded-2xl p-6 border border-slate-800 space-y-6 shadow-2xl">
-                    <!-- Top Bar Mockup -->
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                        <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
-                            <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
-                            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-                        </div>
-                        <span class="text-xs font-mono text-aiCyan font-medium">ai_engine_active.v2</span>
+                <!-- Animated Neural Ring Visual (Rotating Circle & Orbiting AI Nodes) -->
+                <div class="relative py-8 flex items-center justify-center overflow-hidden">
+                    <!-- Outer Rotating Ring -->
+                    <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full border-2 border-dashed border-cyan-500/40 animate-[spin_12s_linear_infinite] flex items-center justify-center relative">
+                        <div class="absolute -top-2 w-4 h-4 bg-amber-400 rounded-full shadow-[0_0_12px_#f59e0b]"></div>
+                        <div class="absolute -bottom-2 w-4 h-4 bg-cyan-400 rounded-full shadow-[0_0_12px_#38bdf8]"></div>
                     </div>
 
-                    <!-- Central Visual Element -->
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-aiGold/10 border border-aiGold/30 flex items-center justify-center text-aiGold text-xl font-bold">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-white font-bold text-lg">HINA AI CORE</h3>
-                            <p class="text-slate-400 text-xs">Software & AI Engineer Roadmap</p>
-                        </div>
-                    </div>
-
-                    <!-- Code snippet box -->
-                    <div class="font-mono text-xs text-slate-300 bg-slate-900 p-4 rounded-xl border border-slate-800">
-                        <span class="text-aiCyan">const</span> developer = {<br>
-                        &nbsp;&nbsp;name: <span class="text-aiGold">"Hina Muqaddas"</span>,<br>
-                        &nbsp;&nbsp;role: <span class="text-aiMint">"Software Engineer"</span>,<br>
-                        &nbsp;&nbsp;focus: <span class="text-aiCyan">"AI Integration & Upskilling"</span><br>
-                        };
+                    <!-- Inner AI Microchip Core -->
+                    <div class="absolute w-36 h-36 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-amber-500/60 shadow-[0_0_25px_rgba(245,158,11,0.25)] flex flex-col items-center justify-center p-3 text-center">
+                        <i class="fa-solid fa-microchip text-4xl text-amber-400 mb-2 animate-pulse"></i>
+                        <span class="text-[11px] font-bold text-white tracking-wider uppercase">HINA AI CORE</span>
+                        <span class="text-[9px] text-cyan-400 font-mono mt-0.5">&lt;Dev & AI/&gt;</span>
                     </div>
                 </div>
-    </section>
 
+                <!-- Code & Laptop Visual Window Mockup -->
+                <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 space-y-3 font-mono text-xs">
+                    <div class="flex items-center justify-between text-slate-400 text-[10px] pb-2 border-b border-slate-800/80">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-laptop-code text-cyan-400"></i>
+                            developer_profile.js
+                        </span>
+                        <span class="text-emerald-400">● Live</span>
+                    </div>
+                    <div class="text-slate-300 space-y-1 text-[11px] leading-relaxed">
+                        <p><span class="text-cyan-400">const</span> <span class="text-amber-300">softwareEngineer</span> = {</p>
+                        <p class="pl-4">name: <span class="text-emerald-300">"Hina Muqaddas"</span>,</p>
+                        <p class="pl-4">skills: [<span class="text-amber-300">"Frontend"</span>, <span class="text-amber-300">"React"</span>, <span class="text-amber-300">"AI Dev"</span>],</p>
+                        <p class="pl-4">goal: <span class="text-cyan-300">"AI Engineering Mastery"</span></p>
+                        <p>};</p>
+                    </div>
+                </div>
+
+                <!-- Balanced Metrics Grid (Overlap Fix) -->
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-center">
+                        <p class="text-lg font-bold text-amber-400">2+ Yrs</p>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wide">Experience</p>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-center">
+                        <p class="text-lg font-bold text-cyan-400">100%</p>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wide">Custom & Ready</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     <!-- ABOUT ME SECTION (Expanded & Detailed) -->
     <section id="about" class="py-24 relative border-t border-slate-800/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
